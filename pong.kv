@@ -1,0 +1,121 @@
+#:kivy 1.0.9
+
+<StartMenu>:
+    size: 400,300
+
+    BoxLayout:
+        orientation:'vertical'
+        color: 1,1,1,1
+
+        Button:
+            color: .3,.5,.7,1
+            text: 'Resume'
+            font_size: 50
+            on_press: root.btn_resume()
+            pos: root.center_x-190, root.center_y-140
+            size: 380, 280
+
+        Button:
+            text: 'Restart'
+            font_size: 50
+            on_press: root.btn_restart()
+            pos: root.center_x-190, root.center_y-140
+            size: 380, 280
+
+        Button:
+            text: 'Quit'
+            font_size: 50
+            on_press: root.btn_quit()
+            pos: root.center_x-190, root.center_y-140
+            size: 380, 280
+
+<PongGame>:
+    ball: pong_ball
+    player1: player_left
+    player2: player_right
+    startmenu: start_menu
+
+    canvas:
+        Color:
+            rgba: (.1,.9,.3,1)
+        Rectangle:
+            pos: 0,0
+            size: self.size
+
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            pos: self.center_x - 5, 0
+            size: 10, self.height
+
+        Color:
+            rgba: (1,1,1,1)
+        Ellipse:
+            pos: self.center_x-self.width*.1, self.center_y-self.height*.1
+            size: self.width*.2, self.width*.2
+
+        Color:
+            rgba: (0,0,0,1)
+        Ellipse:
+            pos: self.center_x - self.width*.09, self.center_y - self.height*.09
+            size: self.width*.18, self.width*.18
+
+        Color:
+            rgba: (1,1,1,1)
+
+        Rectangle:
+            source: 'ponglogo.png'
+            pos: self.center_x-self.width*.075, self.center_y-self.height*.075
+            size: self.width*.15, self.width*.15
+
+    Button:
+        font_size: 15
+        text: "Start Menu"
+        on_press: root.btn_startmenu()
+        color: 1,.2,.3,1
+        center_x: root.width/2
+        center_y: root.height * 7/8
+
+    Label:
+        font_size: 70
+        center_x: root.width / 4
+        top: root.top - 50
+        text: str(root.player1.score)
+    Label:
+        font_size: 70
+        center_x: root.width * 3 / 4
+        top: root.top - 50
+        text: str(root.player2.score)
+
+    PongBall:
+        id: pong_ball
+        center: self.parent.center
+
+    PongPaddle:
+        id: player_left
+        x: root.x
+        center_y: root.center_y
+
+    PongPaddle:
+        id: player_right
+        x: root.width-self.width
+        center_y: root.center_y
+
+    StartMenu:
+        id: start_menu
+        center_y: root.center_y
+        center_x: root.width/2
+
+<PongBall>:
+    size: 50, 50
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<PongPaddle>:
+    size: 25, 200
+    canvas:
+        Rectangle:
+            pos:self.pos
+            size:self.size
